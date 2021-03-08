@@ -21,6 +21,8 @@ class ViewController: UIViewController {
         }
     }
     
+    private var lastPointPassed: SCNNode?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let configuration = ARObjectScanningConfiguration()
@@ -62,7 +64,6 @@ class ViewController: UIViewController {
         if startTimeForCalculateFov + timeOfCalculateFov > time {
             let imageResolution = camera.imageResolution
             let intrinsics = camera.intrinsics
-            
             let wFovDegrees = 2 * atan(Float(imageResolution.width)/(2 * intrinsics[1,1])) * 180/Float.pi
             let hFovDegrees = 2 * atan(Float(imageResolution.height)/(2 * intrinsics[1,1])) * 180/Float.pi
             let minFov = min(wFovDegrees, hFovDegrees)
@@ -74,11 +75,40 @@ class ViewController: UIViewController {
         }
     }
     
+    func hittedNode(_ point: CGPoint, renderer: SCNSceneRenderer) -> SCNNode? {
+        var options: [SCNHitTestOption : Any] = [:]
+        if #available(iOS 11.0, *) {
+            options = [SCNHitTestOption.searchMode: 1]
+        }
+        let hitTests = renderer.hitTest(point, options: options)
+        let result = hitTests.first { (hitTestResult) -> Bool in
+            return (hitTestResult.node.name?.contains("sphere") ?? false)
+        }
+        return result?.node
+    }
+    
+    private func detectPoint(_ renderer: SCNSceneRenderer) {
+        //guard let scene = renderer as? ARSCNView else { return }
+        let cameraCenterPoint = self.sceneView.center
+        guard let hittedNode = hittedNode(cameraCenterPoint, renderer: renderer) else { return }
+        if let lastPoint = lastPointPassed {
+            drawLine(from: lastPoint, to: hittedNode)
+        }
+    }
+    
+    private func drawLine(from: SCNNode, to: SCNNode) {
+        let lineGeometry = SCNGeometry.line(from: from.position, to: to.position)
+        let lineNode = SCNNode(geometry: lineGeometry)
+        sceneView.scene.rootNode.addChildNode(lineNode)
+        lastPointPassed = to
+    }
+    
 }
 
 
 extension ViewController: ARSCNViewDelegate {
     func renderer(_ renderer: SCNSceneRenderer, willRenderScene scene: SCNScene, atTime time: TimeInterval) {
         getFov(renderer: renderer, time: time)
+        detectPoint(renderer)
     }
 }

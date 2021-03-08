@@ -15,6 +15,7 @@ class PointsService {
     private var viewPoints = [ViewPoint3]()
     private var pointsPositions = [SCNVector3]()
     private let positionScale: Double
+    private var lastPoint: [SCNVector3]?
     
     init(fov: Double, overlapping: Double, positionScale: Double) {
         self.fov = fov

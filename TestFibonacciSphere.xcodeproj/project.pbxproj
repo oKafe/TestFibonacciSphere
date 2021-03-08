@@ -18,6 +18,7 @@
 		3959448425F6174400EEF21B /* Points.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3959448325F6174400EEF21B /* Points.swift */; };
 		3959448F25F6184800EEF21B /* PointsAngles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3959448E25F6184800EEF21B /* PointsAngles.swift */; };
 		3959449425F61D8F00EEF21B /* PointsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3959449325F61D8F00EEF21B /* PointsService.swift */; };
+		3977499925F6AB52000D92BA /* SCNGeometry+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3977499825F6AB52000D92BA /* SCNGeometry+Ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		3959448325F6174400EEF21B /* Points.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Points.swift; sourceTree = "<group>"; };
 		3959448E25F6184800EEF21B /* PointsAngles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointsAngles.swift; sourceTree = "<group>"; };
 		3959449325F61D8F00EEF21B /* PointsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointsService.swift; sourceTree = "<group>"; };
+		3977499825F6AB52000D92BA /* SCNGeometry+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNGeometry+Ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +107,7 @@
 		3959444C25F6130A00EEF21B /* TestFibonacciSphere */ = {
 			isa = PBXGroup;
 			children = (
+				3977499725F6AB3C000D92BA /* Extensions */,
 				3959448125F6132600EEF21B /* Controllers */,
 				3959448025F6131A00EEF21B /* Services */,
 				3959444D25F6130A00EEF21B /* AppDelegate.swift */,
@@ -159,6 +162,14 @@
 				3959448325F6174400EEF21B /* Points.swift */,
 			);
 			path = Points;
+			sourceTree = "<group>";
+		};
+		3977499725F6AB3C000D92BA /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				3977499825F6AB52000D92BA /* SCNGeometry+Ext.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -291,6 +302,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3977499925F6AB52000D92BA /* SCNGeometry+Ext.swift in Sources */,
 				3959448425F6174400EEF21B /* Points.swift in Sources */,
 				3959448F25F6184800EEF21B /* PointsAngles.swift in Sources */,
 				3959445225F6130A00EEF21B /* ViewController.swift in Sources */,
@@ -473,8 +485,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 3K6468Q3E8;
 				INFOPLIST_FILE = TestFibonacciSphere/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -492,8 +506,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 3K6468Q3E8;
 				INFOPLIST_FILE = TestFibonacciSphere/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
