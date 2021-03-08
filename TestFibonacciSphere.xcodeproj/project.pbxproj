@@ -15,6 +15,9 @@
 		3959445A25F6130B00EEF21B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3959445825F6130B00EEF21B /* LaunchScreen.storyboard */; };
 		3959446525F6130B00EEF21B /* TestFibonacciSphereTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3959446425F6130B00EEF21B /* TestFibonacciSphereTests.swift */; };
 		3959447025F6130B00EEF21B /* TestFibonacciSphereUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3959446F25F6130B00EEF21B /* TestFibonacciSphereUITests.swift */; };
+		3959448425F6174400EEF21B /* Points.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3959448325F6174400EEF21B /* Points.swift */; };
+		3959448F25F6184800EEF21B /* PointsAngles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3959448E25F6184800EEF21B /* PointsAngles.swift */; };
+		3959449425F61D8F00EEF21B /* PointsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3959449325F61D8F00EEF21B /* PointsService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +52,9 @@
 		3959446B25F6130B00EEF21B /* TestFibonacciSphereUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TestFibonacciSphereUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3959446F25F6130B00EEF21B /* TestFibonacciSphereUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestFibonacciSphereUITests.swift; sourceTree = "<group>"; };
 		3959447125F6130B00EEF21B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3959448325F6174400EEF21B /* Points.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Points.swift; sourceTree = "<group>"; };
+		3959448E25F6184800EEF21B /* PointsAngles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointsAngles.swift; sourceTree = "<group>"; };
+		3959449325F61D8F00EEF21B /* PointsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointsService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,9 +105,10 @@
 		3959444C25F6130A00EEF21B /* TestFibonacciSphere */ = {
 			isa = PBXGroup;
 			children = (
+				3959448125F6132600EEF21B /* Controllers */,
+				3959448025F6131A00EEF21B /* Services */,
 				3959444D25F6130A00EEF21B /* AppDelegate.swift */,
 				3959444F25F6130A00EEF21B /* SceneDelegate.swift */,
-				3959445125F6130A00EEF21B /* ViewController.swift */,
 				3959445325F6130A00EEF21B /* Main.storyboard */,
 				3959445625F6130B00EEF21B /* Assets.xcassets */,
 				3959445825F6130B00EEF21B /* LaunchScreen.storyboard */,
@@ -126,6 +133,32 @@
 				3959447125F6130B00EEF21B /* Info.plist */,
 			);
 			path = TestFibonacciSphereUITests;
+			sourceTree = "<group>";
+		};
+		3959448025F6131A00EEF21B /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				3959448225F614D800EEF21B /* Points */,
+				3959449325F61D8F00EEF21B /* PointsService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		3959448125F6132600EEF21B /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				3959445125F6130A00EEF21B /* ViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		3959448225F614D800EEF21B /* Points */ = {
+			isa = PBXGroup;
+			children = (
+				3959448E25F6184800EEF21B /* PointsAngles.swift */,
+				3959448325F6174400EEF21B /* Points.swift */,
+			);
+			path = Points;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -258,8 +291,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3959448425F6174400EEF21B /* Points.swift in Sources */,
+				3959448F25F6184800EEF21B /* PointsAngles.swift in Sources */,
 				3959445225F6130A00EEF21B /* ViewController.swift in Sources */,
 				3959444E25F6130A00EEF21B /* AppDelegate.swift in Sources */,
+				3959449425F61D8F00EEF21B /* PointsService.swift in Sources */,
 				3959445025F6130A00EEF21B /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
