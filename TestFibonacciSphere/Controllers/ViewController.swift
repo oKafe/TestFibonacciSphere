@@ -22,6 +22,12 @@ class ViewController: UIViewController, ARSessionDelegate {
         }
     }
     
+    private var passedPointsInddexes = [String]() {
+        didSet {
+            debugLabel.text = passedPointsInddexes.joined(separator: ", ")
+        }
+    }
+    
     private var lastPointPassed: SCNNode?
     
     override func viewDidLoad() {
@@ -50,7 +56,7 @@ class ViewController: UIViewController, ARSessionDelegate {
     
     private func getSphereNode(position: SCNVector3, _ pointNumber: Int) -> SCNNode {
         let ball = SCNSphere(radius: 0.04)
-        ball.firstMaterial?.diffuse.contents = UIColor.black
+        ball.firstMaterial?.diffuse.contents = UIColor.red
         let ballNode = SCNNode(geometry: ball)
         ballNode.isHidden = false
         ballNode.name = "sphere\(pointNumber)"
@@ -63,8 +69,17 @@ class ViewController: UIViewController, ARSessionDelegate {
         self.sceneView.scene.rootNode.addChildNode(sphereNode)
     }
     
+    private func showRing() {
+        let ring = SCNTorus(ringRadius: 0.007, pipeRadius: 0.0003)
+        ring.materials.first?.diffuse.contents = UIColor.blue
+        let ringNode = SCNNode(geometry: ring)
+        ringNode.name = "ring"
+        ringNode.position = SCNVector3(0, 0, -0.2)
+        ringNode.eulerAngles = SCNVector3(GLKMathDegreesToRadians(90), 0, 0)
+        self.sceneView.pointOfView?.addChildNode(ringNode)
+    }
+    
     private func showSpherePoints() {
-        debugLabel.text = "createSpheres"
         let spheres = pointsService.getAllPoints()
         spheres.forEach { (position, index) in
             addSpherePoint(position, pointNumber: index)
@@ -75,7 +90,6 @@ class ViewController: UIViewController, ARSessionDelegate {
         guard let scene = renderer as? ARSCNView,
             let camera = scene.session.currentFrame?.camera,
             fov == 0 else {
-            //self.debugLabel.text = "ERROR"
             return
         }
         if startTimeForCalculateFov == 0 {
@@ -89,13 +103,11 @@ class ViewController: UIViewController, ARSessionDelegate {
             let hFovDegrees = 2 * atan(Float(imageResolution.height)/(2 * intrinsics[1,1])) * 180/Float.pi
             let minFov = min(wFovDegrees, hFovDegrees)
             fovArray.append(minFov)
-            self.debugLabel.text = "TIME"
         } else {
-            self.debugLabel.text = "GOOD"
             let average = fovArray.reduce(0, +) / Float(fovArray.count)
             fov = Double(ceil(average))
-            self.debugLabel.text = "FOV: \(fov)"
-            self.pointsService = PointsService(fov: fov, overlapping: 0.2, positionScale: 1.5)
+            pointsService = PointsService(fov: fov, overlapping: 0.2, positionScale: 1.5)
+            showRing()
         }
     }
     
@@ -108,23 +120,29 @@ class ViewController: UIViewController, ARSessionDelegate {
         let result = hitTests.first { (hitTestResult) -> Bool in
             return (hitTestResult.node.name?.contains("sphere") ?? false)
         }
+        result?.node.geometry?.materials.first?.diffuse.contents = UIColor.blue
         return result?.node
     }
     
     private func detectPoint(_ renderer: SCNSceneRenderer) {
-        //guard let scene = renderer as? ARSCNView else { return }
-        let cameraCenterPoint = self.sceneView.center
-        guard let hittedNode = hittedNode(cameraCenterPoint, renderer: renderer) else { return }
+        guard let scene = renderer as? ARSCNView else { return }
+        guard let ring = scene.pointOfView?.childNodes
+            .filter ({ return $0.name == "ring" }).first else { return }
+        let ringPoint = sceneView.projectPoint(ring.worldPosition).cgPoint
+        guard let hittedNode = hittedNode(ringPoint, renderer: renderer) else { return }
         if let lastPoint = lastPointPassed {
             drawLine(from: lastPoint, to: hittedNode)
+        }
+        lastPointPassed = hittedNode
+        let nodeName = hittedNode.name ?? "No sphere name"
+        if !passedPointsInddexes.contains(nodeName) {
+            passedPointsInddexes.append(hittedNode.name ?? "No sphere name")
         }
     }
     
     private func drawLine(from: SCNNode, to: SCNNode) {
-        let lineGeometry = SCNGeometry.line(from: from.position, to: to.position)
-        let lineNode = SCNNode(geometry: lineGeometry)
-        sceneView.scene.rootNode.addChildNode(lineNode)
-        lastPointPassed = to
+        let cylinderLine = SCNGeometry.cylinderLine(from: from.position, to: to.position, segments: 3)
+        sceneView.scene.rootNode.addChildNode(cylinderLine)
     }
     
 }
@@ -133,7 +151,6 @@ class ViewController: UIViewController, ARSessionDelegate {
 extension ViewController: ARSCNViewDelegate {
     func renderer(_ renderer: SCNSceneRenderer, willRenderScene scene: SCNScene, atTime time: TimeInterval) {
         DispatchQueue.main.async {
-            //self.debugLabel.text = "renderer will render scene"
             self.getFov(renderer: renderer, time: time)
             self.detectPoint(renderer)
         }

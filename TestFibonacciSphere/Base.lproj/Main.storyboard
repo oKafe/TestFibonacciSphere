@@ -20,22 +20,23 @@
                             <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i7n-IM-eMN">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                             </arscnView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dav-iY-hhx">
-                                <rect key="frame" x="322.5" y="40" width="51.5" height="24"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                <nil key="textColor"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dav-iY-hhx">
+                                <rect key="frame" x="8" y="48" width="398" height="0.0"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                <color key="textColor" systemColor="systemRedColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="dav-iY-hhx" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="40" id="0FH-FX-2a1"/>
-                            <constraint firstAttribute="trailing" secondItem="dav-iY-hhx" secondAttribute="trailing" constant="40" id="5cq-bP-Caj"/>
+                            <constraint firstItem="dav-iY-hhx" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="48" id="0FH-FX-2a1"/>
+                            <constraint firstAttribute="trailing" secondItem="dav-iY-hhx" secondAttribute="trailing" constant="8" id="5cq-bP-Caj"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="i7n-IM-eMN" secondAttribute="bottom" id="PKI-6T-5Gi"/>
                             <constraint firstAttribute="trailing" secondItem="i7n-IM-eMN" secondAttribute="trailing" id="RMa-Dg-Hbz"/>
                             <constraint firstItem="i7n-IM-eMN" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Srd-uX-wCG"/>
                             <constraint firstItem="i7n-IM-eMN" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Z1E-JY-Bg3"/>
+                            <constraint firstItem="dav-iY-hhx" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="l0w-Dc-qcE"/>
                         </constraints>
                     </view>
                     <connections>
@@ -51,6 +52,9 @@
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

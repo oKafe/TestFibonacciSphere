@@ -30,6 +30,10 @@ class PointsService {
         return pointsPositions.enumerated().map { ($0.element, $0.offset) }
     }
     
+    func getAllPointsCount() -> Int {
+        return viewPoints.count
+    }
+    
     private func getAllViewPoints() -> [ViewPoint3] {
         return pointsAngles.getAllViewPoints(fov: fov, overlapping: overlapping)
     }
