@@ -10,6 +10,8 @@ import XCTest
 
 class TestFibonacciSphereTests: XCTestCase {
 
+    var expectation: XCTestExpectation!
+    
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
@@ -21,6 +23,17 @@ class TestFibonacciSphereTests: XCTestCase {
     func testExample() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
+    }
+    
+    func testPointsCount() throws {
+        let pointsService = PointsService(fov: 52.0, overlapping: 0.2, positionScale: 1.5)
+        let points = pointsService.getAllPoints()
+        let pointsCount = points.count
+        if pointsCount == 40 {
+            XCTAssert(true)
+        } else {
+            XCTAssert(false)
+        }
     }
 
     

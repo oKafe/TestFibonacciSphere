@@ -8,8 +8,9 @@
 import UIKit
 import ARKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, ARSessionDelegate {
 
+    @IBOutlet weak var debugLabel: UILabel!
     @IBOutlet weak var sceneView: ARSCNView!
     private let timeOfCalculateFov: TimeInterval = 1
     private var fov: Double = 0
@@ -25,10 +26,26 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupSession()
+    }
+    
+    private func setupSession() {
         let configuration = ARObjectScanningConfiguration()
         configuration.planeDetection = [.vertical, .horizontal]
-        self.sceneView.session.run(configuration)
-        self.sceneView.delegate = self
+        configureScene()
+        sceneView.session.run(configuration)
+    }
+    
+    private func configureScene() {
+        let scene = SCNScene()
+        sceneView.scene = scene
+        sceneView.delegate = self
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        sceneView.delegate = self
+        sceneView.session.delegate = self
     }
     
     private func getSphereNode(position: SCNVector3, _ pointNumber: Int) -> SCNNode {
@@ -47,6 +64,7 @@ class ViewController: UIViewController {
     }
     
     private func showSpherePoints() {
+        debugLabel.text = "createSpheres"
         let spheres = pointsService.getAllPoints()
         spheres.forEach { (position, index) in
             addSpherePoint(position, pointNumber: index)
@@ -56,7 +74,10 @@ class ViewController: UIViewController {
     private func getFov(renderer: SCNSceneRenderer, time: TimeInterval) {
         guard let scene = renderer as? ARSCNView,
             let camera = scene.session.currentFrame?.camera,
-            fov == 0 else { return }
+            fov == 0 else {
+            //self.debugLabel.text = "ERROR"
+            return
+        }
         if startTimeForCalculateFov == 0 {
             startTimeForCalculateFov = time
         }
@@ -68,10 +89,13 @@ class ViewController: UIViewController {
             let hFovDegrees = 2 * atan(Float(imageResolution.height)/(2 * intrinsics[1,1])) * 180/Float.pi
             let minFov = min(wFovDegrees, hFovDegrees)
             fovArray.append(minFov)
+            self.debugLabel.text = "TIME"
         } else {
+            self.debugLabel.text = "GOOD"
             let average = fovArray.reduce(0, +) / Float(fovArray.count)
             fov = Double(ceil(average))
-            self.pointsService = PointsService(fov: fov, overlapping: 20, positionScale: 2.0)
+            self.debugLabel.text = "FOV: \(fov)"
+            self.pointsService = PointsService(fov: fov, overlapping: 0.2, positionScale: 1.5)
         }
     }
     
@@ -108,7 +132,12 @@ class ViewController: UIViewController {
 
 extension ViewController: ARSCNViewDelegate {
     func renderer(_ renderer: SCNSceneRenderer, willRenderScene scene: SCNScene, atTime time: TimeInterval) {
-        getFov(renderer: renderer, time: time)
-        detectPoint(renderer)
+        DispatchQueue.main.async {
+            //self.debugLabel.text = "renderer will render scene"
+            self.getFov(renderer: renderer, time: time)
+            self.detectPoint(renderer)
+        }
+        
+        
     }
 }
