@@ -27,8 +27,7 @@ class TestFibonacciSphereTests: XCTestCase {
     
     func testPointsCount() throws {
         let pointsService = PointsService(fov: 52.0, overlapping: 0.2, positionScale: 1.5)
-        let points = pointsService.getAllPoints()
-        let pointsCount = points.count
+        let pointsCount = pointsService.getAllPointsCount()
         XCTAssert(pointsCount == 40)
     }
 
