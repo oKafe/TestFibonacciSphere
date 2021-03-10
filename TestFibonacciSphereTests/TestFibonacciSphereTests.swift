@@ -29,11 +29,7 @@ class TestFibonacciSphereTests: XCTestCase {
         let pointsService = PointsService(fov: 52.0, overlapping: 0.2, positionScale: 1.5)
         let points = pointsService.getAllPoints()
         let pointsCount = points.count
-        if pointsCount == 40 {
-            XCTAssert(true)
-        } else {
-            XCTAssert(false)
-        }
+        XCTAssert(pointsCount == 40)
     }
 
     
